@@ -1,18 +1,20 @@
 package com.example.dev_app_mobile
-
-import android.os.Bundle
-import androidx.activity.ComponentActivity
-import androidx.activity.compose.setContent
-import androidx.activity.enableEdgeToEdge
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.padding
-import androidx.compose.material3.Scaffold
-import androidx.compose.material3.Text
-import androidx.compose.runtime.Composable
-import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.Preview
-import com.example.dev_app_mobile.ui.theme.DevappmobileTheme
-
+//Habilitar Compose en el build.gradle
+dependencies {buildFeatures {
+    compose truekotlinOptions {
+        jvmTarget = "1.8"
+    }
+}
+composeOptions {
+    kotlinCompilerExtensionVersion = "1.6.1"
+}//Dependencias de Jetpack Compose
+    implementation "androidx.activity:activity-compose:1.8.2"
+    implementation "androidx.compose.ui:ui:1.6.1"
+    implementation "androidx.compose.material:material:1.6.1"
+    implementation "androidx.compose.material3:material3:1.2.0"
+    implementation "androidx.compose.ui:ui-tooling-preview:1.6.1"
+    debugImplementation "androidx.compose.ui:ui-tooling:1.6.1"
+}
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
