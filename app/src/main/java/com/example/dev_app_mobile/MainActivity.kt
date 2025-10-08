@@ -4,6 +4,68 @@ dependencies {buildFeatures {
     compose truekotlinOptions {
         jvmTarget = "1.8"
     }
+    // Modelo: representa los datos que se mostrarán en la pantalla
+    data class GreetingModel(val name: String)
+
+} //Gestiona el estado y la lógica de la UI.
+import androidx.lifecycle.ViewModel
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.setValueimport androidx.lifecycle.ViewModel
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.setValueimport androidx.activity.viewModels
+
+    // Actividad principal: punto de entrada de la app
+class MainActivity : ComponentActivity() {
+        // Instancia del ViewModel para la pantalla
+    private val viewModel: GreetingViewModel by viewModels()
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        // Configura la UI usando Jetpack Compose
+        setContent {
+            DevappmobileTheme {
+                Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
+                    // Llama a la pantalla principal y le pasa el ViewModel
+                    GreetingScreen(
+                        viewModel = viewModel,
+                        modifier = Modifier.padding(innerPadding)
+                    )
+                }
+            }
+        }
+    }
+}
+    // Composable: define la UI y consume el estado del ViewModel
+@Composable
+fun GreetingScreen(viewModel: GreetingViewModel, modifier: Modifier = Modifier) {
+    val greeting = viewModel.greeting
+    Column(modifier = modifier) {
+        Text(text = "Hello ${greeting.name}!")
+        Button(onClick = { viewModel.updateName("Jetpack Compose") }) {
+            Text("Cambiar nombre")
+        }
+    }
+}
+    // ViewModel: gestiona el estado y la lógica de la UI
+class GreetingViewModel : ViewModel() {
+        // Estado observable para Compose
+    var greeting by mutableStateOf(GreetingModel("Android"))
+        private set
+        // Función para actualizar el nombre
+    fun updateName(newName: String) {
+        greeting = GreetingModel(newName)
+    }
+}
+
+class GreetingViewModel : ViewModel() {
+    var greeting by mutableStateOf(GreetingModel("Android"))
+        private set
+
+    fun updateName(newName: String) {
+        greeting = GreetingModel(newName)
+    }
 }
 composeOptions {
     kotlinCompilerExtensionVersion = "1.6.1"
